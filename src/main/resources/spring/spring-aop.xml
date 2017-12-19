@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://www.springframework.org/schema/aop 
+	   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+    <aop:aspectj-autoproxy/>
+    <bean id="actionImpl" class="com.maowei.learning.aop.ActionImpl"/>
+    <!--<bean id="actionAspect" class="com.maowei.learning.aop.ActionAspect"/>-->
+    <bean id="actionAspectXML" class="com.maowei.learning.aop.ActionAspectXML"/>
+
+    <aop:config>
+        <aop:aspect id = "aspectXML" ref="actionAspectXML">
+            <aop:pointcut id="anyMethod" expression="execution(* com.maowei.learning.aop.ActionImpl.*(..))"/>
+            <aop:before method="beforeMethod" pointcut-ref="anyMethod"/>
+            <aop:after method="afterMethod" pointcut-ref="anyMethod"/>
+            <aop:after-returning method="afterReturningMethod" pointcut-ref="anyMethod"/>
+            <aop:after-throwing method="afterThrowMethod" pointcut-ref="anyMethod"/>
+            <aop:around method="aroundMethod" pointcut-ref="anyMethod"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
