@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.maowei.com/schema/person"
+        xmlns:tns="http://www.maowei.com/schema/person"
+        elementFormDefault="qualified">
+
+    <element name="person">
+        <complexType>
+            <attribute name="id" type="string"/>
+            <attribute name="name" type="string"/>
+            <attribute name="age" type="int"/>
+        </complexType>
+    </element>
+</schema>
