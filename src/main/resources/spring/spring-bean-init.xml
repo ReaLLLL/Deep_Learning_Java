@@ -17,5 +17,5 @@
 
     <bean class="com.maowei.learning.bean_init.BeanPostProcessorImpl"/>
     <bean class="com.maowei.learning.bean_init.MyBeanFactoryPostProcessor"/>
-    <!--bean class="com.maowei.learning.bean_init.MyInstantiationAwareBeanPostProcessor"/-->
+    <bean class="com.maowei.learning.bean_init.MyInstantiationAwareBeanPostProcessor"/>
 </beans>
