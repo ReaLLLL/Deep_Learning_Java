@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+    <!--
+    <bean id="person01" class="com.maowei.learning.bean_init.Person">
+        <property name="name" value="alex"/>
+        <property name="age" value="20"/>
+    </bean>
+    -->
+
+    <bean id="person02" class="com.maowei.learning.bean_init.Person" init-method="init" destroy-method="cleanUp" p:name="real" p:age = "11"/>
+
+    <bean class="com.maowei.learning.bean_init.BeanPostProcessorImpl"/>
+    <bean class="com.maowei.learning.bean_init.MyBeanFactoryPostProcessor"/>
+    <!--bean class="com.maowei.learning.bean_init.MyInstantiationAwareBeanPostProcessor"/-->
+</beans>
