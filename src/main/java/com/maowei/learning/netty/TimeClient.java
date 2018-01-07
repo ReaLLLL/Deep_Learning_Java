@@ -40,7 +40,7 @@ public class TimeClient {
     }
 
     public static void main(String[] args) throws Exception{
-        int port = 10800;
-        new TimeClient().connect(port, "localhost");
+        int port = 8800;
+        new TimeClient().connect(port, "127.0.0.1");
     }
 }

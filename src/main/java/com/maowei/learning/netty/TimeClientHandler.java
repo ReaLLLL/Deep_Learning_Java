@@ -21,7 +21,7 @@ public class TimeClientHandler extends ChannelHandlerAdapter {
         firstMessage.writeBytes(req);
     }
 
-    public void handlerAdded(ChannelHandlerContext ctx){
+    public void channelActive(ChannelHandlerContext ctx){
         ctx.writeAndFlush(firstMessage);
     }
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception{
