@@ -19,7 +19,6 @@ public class TimeServer {
     public void bind(int port) throws Exception{
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-        System.out.println("准备运行端口：" + port);
 
         try {
             ServerBootstrap b = new ServerBootstrap();
