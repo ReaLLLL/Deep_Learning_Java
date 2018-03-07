@@ -6,6 +6,6 @@ public abstract class CarInf {
 
     public void getCarInfo() {
         System.out.println("The brand of car is "+this.brand);
-        System.out.println("The car of car is "+this.color);
+        System.out.println("The color of car is "+this.color);
     }
 }
