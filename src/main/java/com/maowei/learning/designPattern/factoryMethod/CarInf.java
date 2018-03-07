@@ -1,4 +1,4 @@
-package com.maowei.learning.designPattern;
+package com.maowei.learning.designPattern.factoryMethod;
 
 public abstract class CarInf {
     public String brand;

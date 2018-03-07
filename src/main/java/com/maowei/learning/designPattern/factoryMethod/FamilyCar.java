@@ -1,4 +1,4 @@
-package com.maowei.learning.designPattern;
+package com.maowei.learning.designPattern.factoryMethod;
 
 public class FamilyCar extends CarInf{
     public FamilyCar(String brand, String color){

@@ -1,4 +1,4 @@
-package com.maowei.learning.designPattern;
+package com.maowei.learning.designPattern.factoryMethod;
 
 public class SportsCar extends CarInf{
 

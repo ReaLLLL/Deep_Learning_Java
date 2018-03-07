@@ -1,4 +1,4 @@
-package com.maowei.learning.designPattern;
+package com.maowei.learning.designPattern.factoryMethod;
 
 public class CarFactoryImpl01 implements CarFactoryInf{
     private String factoryName;

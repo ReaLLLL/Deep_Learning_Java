@@ -1,10 +1,5 @@
 package com.maowei.learning.designPattern.factoryMethod;
 
-import com.maowei.learning.designPattern.CarFactoryImpl01;
-import com.maowei.learning.designPattern.CarFactoryImpl02;
-import com.maowei.learning.designPattern.CarFactoryInf;
-import com.maowei.learning.designPattern.CarInf;
-
 public class CarShop {
     private CarFactoryInf carFactory;
 
