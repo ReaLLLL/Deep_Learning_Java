@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	   http://www.springframework.org/schema/util
+	   http://www.springframework.org/schema/util/spring-util.xsd
+	   http://www.springframework.org/schema/rabbit
+	   http://www.springframework.org/schema/rabbit/spring-rabbit.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config/>
+
+    <context:property-placeholder location="classpath:META-INF/application.properties"/>
+    <util:properties id="appConfig" location="classpath:META-INF/application.properties"/>
+
+    <rabbit:connection-factory id="connectionFactory" host="${mq.host}" username="${mq.username}" password="${mq.password}" port="${mq.port}"/>
+
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <rabbit:template id="amqpTemplate" exchange="${mq.queue}_exchange" connection-factory="connectionFactory"/>
+
+    <rabbit:queue id="test_queue" name="${mq.queue}_testQueue" durable="true" auto-delete="false" exclusive="false" />
+    
+    <rabbit:topic-exchange name="${mq.queue}_exchange" durable="true" auto-delete="false">
+        <rabbit:bindings>
+            <rabbit:binding queue="test_queue" pattern="${mq.queue}_patt"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+
+    <rabbit:listener-container connection-factory="connectionFactory" acknowledge="auto">
+        <rabbit:listener queues="test_queue" ref="mqConsumerImpl"/>
+    </rabbit:listener-container>
+
+    <bean id="mqProducer" class="com.maowei.learning.mq.MqProducerImpl">
+        <property name="amqpTemplate" ref="amqpTemplate"/>
+    </bean>
+
+    <bean id="mqConsumerImpl" class="com.maowei.learning.mq.MqConsumerImpl"/>
+
+</beans>
