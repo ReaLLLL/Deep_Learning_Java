@@ -6,7 +6,7 @@ public class EnumSingleton {
 
         private Singleton instance;
 
-        private SingletonEnum(){
+        SingletonEnum(){
             this.instance = new Singleton();
         }
 
