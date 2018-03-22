@@ -41,6 +41,6 @@ public class TimeClient {
 
     public static void main(String[] args) throws Exception{
         int port = 8800;
-        new TimeClient().connect(port, "localhost");
+        new TimeClient().connect(port, "192.168.1.4");
     }
 }
