@@ -1,4 +1,4 @@
-package com.maowei.learning.thread.callback;
+package com.maowei.learning.callback;
 
 public class CallbackTest {
     public static void main(String[] args) {

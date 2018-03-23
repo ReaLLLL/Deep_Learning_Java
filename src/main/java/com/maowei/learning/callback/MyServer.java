@@ -1,4 +1,4 @@
-package com.maowei.learning.thread.callback;
+package com.maowei.learning.callback;
 
 public class MyServer {
     public void getClientMsg(MyCallback callback, String msg){

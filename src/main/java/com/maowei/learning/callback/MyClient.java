@@ -1,4 +1,4 @@
-package com.maowei.learning.thread.callback;
+package com.maowei.learning.callback;
 
 public class MyClient implements MyCallback{
     private MyServer server;
