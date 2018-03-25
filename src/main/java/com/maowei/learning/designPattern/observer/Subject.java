@@ -1,9 +1,9 @@
 package com.maowei.learning.designPattern.observer;
 
 public interface Subject {
-    void attach(Observer observer);
+    void addObserver(Observer observer);
 
-    void detach(Observer observer);
+    void removeObserver(Observer observer);
 
     void notifyObserver();
 }

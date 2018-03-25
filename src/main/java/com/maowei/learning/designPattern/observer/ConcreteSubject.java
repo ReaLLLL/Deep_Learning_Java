@@ -10,11 +10,11 @@ public class ConcreteSubject implements Subject{
         this.list = new ArrayList<Observer>();
     }
 
-    public void attach(Observer observer) {
+    public void addObserver(Observer observer) {
         this.list.add(observer);
     }
 
-    public void detach(Observer observer) {
+    public void removeObserver(Observer observer) {
         this.list.remove(observer);
     }
 
