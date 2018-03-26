@@ -2,11 +2,18 @@ package com.maowei.learning.designPattern.ResponsibilityChain;
 
 public class ResponsibilityChainTest {
     public static void main(String[] args) {
-        Handler handler01 = new ConcreteHandler01();
-        Handler handler02 = new ConcreteHandler02();
+        Handler projectManager = new ProjectManager();
+        Handler deptManager = new DeptManager();
+        Handler generalManager = new GeneralManager();
 
-        handler01.setSuccessor(handler02);
+        projectManager.setSuccessor(deptManager);
+        deptManager.setSuccessor(generalManager);
 
-        System.out.println(handler01.handleRequest());
+        System.out.println(projectManager.handleRequest(500));
+        System.out.println("==========================\n");
+        System.out.println(projectManager.handleRequest(1500));
+        System.out.println("==========================\n");
+        System.out.println(projectManager.handleRequest(3500));
+
     }
 }
