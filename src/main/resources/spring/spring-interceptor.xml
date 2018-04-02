@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+	   http://www.springframework.org/schema/beans 
+	   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+            <list>
+                <value>action</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <value>interceptor</value>
+        </property>
+    </bean>
+
+    <bean id = "action" class="com.maowei.learning.aop.ActionImpl"/>
+
+    <bean id = "interceptor" class="com.maowei.learning.gray.ServiceMethodInterceptor"/>
+
+</beans>
