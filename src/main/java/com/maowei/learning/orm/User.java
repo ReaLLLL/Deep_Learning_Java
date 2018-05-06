@@ -1,6 +1,8 @@
 package com.maowei.learning.orm;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
     private String id;
     private String name;
     private Integer age;
@@ -33,5 +35,9 @@ public class User {
 
     public void setAge(Integer age) {
         this.age = age;
+    }
+
+    public String toString(){
+        return "用户信息：[ id="+this.id+", name="+this.name+", age="+this.age+" ]";
     }
 }

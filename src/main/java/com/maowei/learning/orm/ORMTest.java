@@ -16,26 +16,46 @@ public class ORMTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("spring/SqlMapConfig.xml"));
 
         SqlSession session1 = sqlSessionFactory.openSession(true);
+        SqlSession session2 = sqlSessionFactory.openSession(true);
+        SqlSession session3 = sqlSessionFactory.openSession(true);
 
-        UserDao dao = session1.getMapper(UserDao.class);
 
-        //dao.addUser(new User("A001","Bull",21));
-
-        //session.commit();
+        UserDao dao1 = session1.getMapper(UserDao.class);
+        UserDao dao2 = session2.getMapper(UserDao.class);
+        UserDao dao3 = session3.getMapper(UserDao.class);
 
         logger.debug("开始查询用户信息");
 
-        logger.info("查询到用户id："+dao.findUserById("A001").getId());
+        logger.info(dao1.findUserById("A001").toString());
+
+        //logger.debug("新增用户信息");
+
+        //dao.addUser(new User("A002","Cathy",24));
+
+        //logger.debug("新增用户信息");
+
+        //dao.addUser(new User("A002","Cathy",24));
+
+        //session.commit();
 
         session1.commit();
 
-        SqlSession session2 = sqlSessionFactory.openSession(true);
+        //logger.debug("新启回话，修改用户信息");
 
-        dao = session2.getMapper(UserDao.class);
+        //dao2.updateUserById(new User("A001","Alex",30));
 
         logger.debug("再次查询用户信息");
 
-        logger.info("查询到用户id："+dao.findUserById("A001").getId());
+        logger.info(dao2.findUserById("A001").toString());
 
+        logger.debug("修改用户信息");
+
+        dao3.updateUserById(new User("A001","Alex",35));
+
+        session3.commit();
+
+        logger.debug("第三次查询用户信息");
+
+        logger.info(dao2.findUserById("A001").toString());
     }
 }
