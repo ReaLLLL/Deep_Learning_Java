@@ -1,44 +1,43 @@
 package com.maowei.learning.redis;
 
-import org.apache.ibatis.cache.Cache;
+import com.ibatis.sqlmap.engine.cache.CacheController;
+import com.ibatis.sqlmap.engine.cache.CacheModel;
 import org.apache.log4j.Logger;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import java.util.concurrent.locks.ReadWriteLock;
+import java.util.Properties;
 
-public class RedisCache implements Cache {
+public class RedisCache implements CacheController{
     private static final Logger logger = Logger.getLogger(RedisCache.class);
 
-    private RedisTemplate<String, Object> redisTemplate;
-    private String name;
+    private RedisTemplate redisTemplate;
 
+    public void flush(CacheModel cacheModel) {
+        this.redisTemplate.execute(new RedisCallback() {
+            public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
+                logger.debug("flush redis");
+                redisConnection.flushDb();
+                return null;
+            }
+        });
+    }
 
-
-    public String getId() {
+    public Object getObject(CacheModel cacheModel, Object o) {
         return null;
     }
 
-    public void putObject(Object key, Object value) {
-
-    }
-
-    public Object getObject(Object key) {
+    public Object removeObject(CacheModel cacheModel, Object o) {
         return null;
     }
 
-    public Object removeObject(Object key) {
-        return null;
-    }
-
-    public void clear() {
+    public void putObject(CacheModel cacheModel, Object o, Object o1) {
 
     }
 
-    public int getSize() {
-        return 0;
-    }
+    public void configure(Properties properties) {
 
-    public ReadWriteLock getReadWriteLock() {
-        return null;
     }
 }
