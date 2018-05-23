@@ -14,6 +14,12 @@
         <typeAlias type="com.maowei.learning.orm.User" alias="User" />
     </typeAliases>
 
+    <plugins>
+        <plugin interceptor="com.maowei.learning.orm.MyPageInterceptor">
+            <property name="pageSize" value="10"/>
+        </plugin>
+    </plugins>
+
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC"></transactionManager>
