@@ -8,7 +8,7 @@
         select * from user where id = #{id}
     </select>
 
-    <select id="queryUserByPage" parameterType="map" resultType="User">
+    <select id="queryUserByPage" parameterType="map" resultType="User" flushCache="true">
         select * from user
     </select>
 

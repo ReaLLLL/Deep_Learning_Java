@@ -31,9 +31,8 @@ public class ORMTest {
 
         //logger.info(dao1.findUserById("A001").toString());
 
-        //logger.debug("新增用户信息");
 
-        //dao.addUser(new User("A002","Cathy",24));
+
 
         //logger.debug("新增用户信息");
 
@@ -60,13 +59,25 @@ public class ORMTest {
         //logger.debug("第三次查询用户信息");
 
         //logger.info(dao2.findUserById("A001").toString());
+
         Map<String,Object> map = new HashMap<String, Object>();
-        //map.put("pageSize",5);
-        map.put("currPage",1);
+        int i = 0;
+        int size = 0;
 
-        List<User> list = dao1.queryUserByPage(map);
+        do{
+            System.out.println("当前显示结果第"+(++i)+"页：");
+            map.put("pageSize",5);
+            map.put("currPage",i);
 
-        System.out.print(list);
+            List<User> list = dao1.queryUserByPage(map);
 
+            for(User u : list){
+                System.out.println(u.toString());
+            }
+
+            System.out.println("======================");
+
+            size = list.size();
+        }while (size == 5);
     }
 }

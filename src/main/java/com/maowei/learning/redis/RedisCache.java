@@ -77,6 +77,6 @@ public class RedisCache implements Cache {
     }
 
     public ReadWriteLock getReadWriteLock() {
-        return this.readWriteLock;
+        return null;
     }
 }
