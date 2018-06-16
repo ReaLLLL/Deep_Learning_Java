@@ -1,7 +1,7 @@
 package com.maowei.learning.aop;
 
 public aspect AopAspectJDemo {
-    pointcut demo(): execution(* com.maowei.learning.aop.AopActionImpl.*(..));
+    pointcut demo(): call(* com.maowei.learning.aop.AopActionInf.*(..));
 
     Object around(): demo(){
         System.out.println("进入环绕通知");

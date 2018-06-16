@@ -8,18 +8,14 @@
 	   http://www.springframework.org/schema/aop 
 	   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
-    <aop:aspectj-autoproxy/>
+    <aop:aspectj-autoproxy expose-proxy="true"/>
+
     <bean id="actionImpl" class="com.maowei.learning.aop.AopActionImpl"/>
-    <!--<bean id="actionAspect" class="com.maowei.learning.aop.ActionAspect"/>-->
     <bean id="actionAspectXML" class="com.maowei.learning.aop.ActionAspectXML"/>
 
     <aop:config>
         <aop:aspect id = "aspectXML" ref="actionAspectXML">
-            <aop:pointcut id="anyMethod" expression="execution(* com.maowei.learning.aop.ActionImpl.*(..))"/>
-            <aop:before method="beforeMethod" pointcut-ref="anyMethod"/>
-            <aop:after method="afterMethod" pointcut-ref="anyMethod"/>
-            <aop:after-returning method="afterReturningMethod" pointcut-ref="anyMethod"/>
-            <aop:after-throwing method="afterThrowMethod" pointcut-ref="anyMethod"/>
+            <aop:pointcut id="anyMethod" expression="execution(* com.maowei.learning.aop.AopActionImpl.*(..))"/>
             <aop:around method="aroundMethod" pointcut-ref="anyMethod"/>
         </aop:aspect>
     </aop:config>

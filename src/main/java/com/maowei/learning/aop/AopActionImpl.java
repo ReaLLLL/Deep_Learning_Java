@@ -1,5 +1,7 @@
 package com.maowei.learning.aop;
 
+import org.springframework.aop.framework.AopContext;
+
 /**
  * <p>注释</p>
  *
@@ -9,7 +11,7 @@ package com.maowei.learning.aop;
 public class AopActionImpl implements AopActionInf{
     public void doSomething_01() {
         System.out.println("AopActionImpl.doSomething_01()");
-        this.doSomething_02();
+        ((AopActionInf) AopContext.currentProxy()).doSomething_02();
     }
 
     public void doSomething_02() {
