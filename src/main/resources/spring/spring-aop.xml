@@ -9,7 +9,7 @@
 	   http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
 
     <aop:aspectj-autoproxy/>
-    <bean id="actionImpl" class="com.maowei.learning.aop.ActionImpl"/>
+    <bean id="actionImpl" class="com.maowei.learning.aop.AopActionImpl"/>
     <!--<bean id="actionAspect" class="com.maowei.learning.aop.ActionAspect"/>-->
     <bean id="actionAspectXML" class="com.maowei.learning.aop.ActionAspectXML"/>
 
