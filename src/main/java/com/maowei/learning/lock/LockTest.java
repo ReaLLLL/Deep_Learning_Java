@@ -1,58 +1,156 @@
 package com.maowei.learning.lock;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.*;
 
+
 public class LockTest {
-    private  final Lock lock1;
-    private  final ReadWriteLock lock2;
-    private  final Lock lock3;
+    private Lock lock1 = new ReentrantLock();
+    private Lock lock2 = new ReentrantLock();
+    private Lock lock3 = new ReentrantLock();
+    private Condition condition1 = lock1.newCondition();
+    private Condition condition2 = lock2.newCondition();
+    private Condition condition3 = lock3.newCondition();
+    private volatile AtomicInteger countAC = new AtomicInteger(0);
+    private volatile AtomicInteger countB = new AtomicInteger(0);
 
     public LockTest(){
-        this.lock1 = new ReentrantLock();
-        this.lock2 = new ReentrantReadWriteLock();
-        this.lock3 = new ReentrantLock();
-    }
-
-    public static void main(String[] args){
-        Lock lock = new MyLock();
-        for(int i = 0; i < 10; i++){
-            TestThread t = new TestThread(lock);
-            //t.setDaemon(true);
-            t.start();
-        }
     }
 
     public void A()
     {
+        this.countAC.incrementAndGet();
+
         this.lock1.lock();
 
-        this.lock2.writeLock().lock();
+        try {
+            while(this.countB.get() != 0)
+                this.condition1.await();
 
-        System.out.print("This is A method!");
+            System.out.println("This is A method!");
 
-        this.lock2.writeLock().unlock();
+            if(this.countB.get() != 0){
+                this.lock2.lock();
+                if(this.countB.get() != 0)
+                    this.condition2.signalAll();
+                this.lock2.unlock();
 
-        this.lock1.unlock();
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+            this.lock1.unlock();
+
+            this.countAC.decrementAndGet();
+        }
     }
 
     public void B(){
-        this.lock2.readLock().lock();
 
-        System.out.print("This is B method!");
+        if(this.countAC.get() !=0){
+            this.lock2.lock();
+            try {
+                while (this.countAC.get()!=0){
+                    this.condition2.await();
+                }
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }finally {
+                this.lock2.unlock();
+            }
+        }
 
-        this.lock2.readLock().unlock();
+        this.countB.incrementAndGet();
+
+        System.out.println("This is B method!");
+
+        this.countB.decrementAndGet();
+
+        if(this.countAC.get()!=0){
+            this.lock1.lock();
+            //this.lock3.lock();
+
+            if(this.countAC.get()==0) {
+                this.condition1.signalAll();
+                //this.condition3.signal();
+            }
+            //this.lock3.unlock();
+            this.lock1.unlock();
+        }
     }
 
-    public void C()
+    /*public void C()
     {
         this.lock3.lock();
 
-        this.lock2.writeLock().lock();
+        this.countAC.incrementAndGet();
 
-        System.out.print("This is C method!");
+        try {
+            while(this.countB.get() != 0)
+                this.condition3.await();
 
-        this.lock2.writeLock().unlock();
+            System.out.println("This is A method!");
 
-        this.lock3.unlock();
+            if(this.countB.get() != 0){
+                this.lock2.lock();
+                if(this.countB.get() != 0)
+                    this.condition2.signal();
+                this.lock2.unlock();
+
+            }
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }finally {
+
+            this.countAC.decrementAndGet();
+
+            this.lock3.unlock();
+        }
+    }*/
+
+    public static void main(String[] args){
+        final LockTest t = new LockTest();
+        Thread t1 = new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    t.A();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        Thread t2 = new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    t.B();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        /*Thread t3 = new Thread(new Runnable() {
+            public void run() {
+                while(true) {
+                    t.C();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });*/
+
+        t1.start();
+        t2.start();
+        //t3.start();
     }
 }
