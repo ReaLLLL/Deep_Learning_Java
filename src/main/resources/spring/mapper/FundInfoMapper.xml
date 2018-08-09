@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.maowei.learning.orm.dao.FundInfoDao">
+    <select id="getFundInfoByFundCode" resultType="FundInfo" parameterType="string">
+        select * from t_fund_info where fund_code = #{fundCode} order by date
+    </select>
+
+</mapper>

@@ -12,6 +12,7 @@
 
     <typeAliases>
         <typeAlias type="com.maowei.learning.orm.User" alias="User" />
+        <typeAlias type="com.maowei.learning.orm.FundInfo" alias="FundInfo" />
     </typeAliases>
 
     <plugins>
@@ -35,5 +36,6 @@
 
     <mappers>
         <mapper resource="spring/mapper/UserMapper.xml"/>
+        <mapper resource="spring/mapper/FundInfoMapper.xml"/>
     </mappers>
 </configuration>
